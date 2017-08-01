@@ -23,7 +23,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  config.action_dispatch.show_exceptions = true
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
@@ -39,4 +39,14 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+    # # sets all logs to stdout (including active record sql statements)
+
+  # # uncomment this section to get debugger messages in test runs
+  # config.logger = Logger.new(STDOUT)
+  # # # set logger level to one of [:debug, :info, :warn, :error, :fatal]
+  # # # note: this will display to console when config.logger is set to STDOUT (see above)
+  # config.log_level = :debug
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
 end

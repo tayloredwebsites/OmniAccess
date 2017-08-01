@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class HomeControllerTest < ActionDispatch::IntegrationTest
+class HomeSystemTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
   def sign_in_user_before
@@ -11,14 +11,14 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     sign_in_user_before
-    get home_index_url
-    assert_response :success
+    visit home_index_url
+    assert_equal("/home/index", current_path)
   end
 
   def test_should_get_index_method
     sign_in_user_before
-    get home_index_url
-    assert_response :success
+    visit home_index_url
+    assert_equal("/home/index", current_path)
   end
 
 end
