@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719220323) do
+ActiveRecord::Schema.define(version: 20170805221710) do
+
+  create_table "accesses", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.string "email"
+    t.string "name"
+    t.string "state"
+    t.string "code"
+    t.string "token"
+    t.boolean "expires"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "email"], name: "index_accesses_on_provider_and_email", unique: true
+    t.index ["provider", "uid"], name: "index_accesses_on_provider_and_uid", unique: true
+    t.index ["user_id"], name: "index_accesses_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

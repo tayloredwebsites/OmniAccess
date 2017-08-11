@@ -36,6 +36,10 @@ gem 'jbuilder', '~> 2.5'
 # Use devise for Authentication
 gem 'devise'
 
+# Use omniauth to authorize access to providers
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -43,11 +47,12 @@ end
 
 group :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'factory_girl_rails'
-  gem 'faker'
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  gem 'factory_girl_rails' # factory girl for model factories in testing
+  gem 'capybara', '~> 2.13' # system testing with capybara and selenium browser output
+  gem 'selenium-webdriver' # system testing with capybara and selenium browser output
+  gem 'launchy' # save_and_open_page
+  gem 'minitest-reporters' # enhance minitest reporting
+  gem 'rails-controller-testing' # add assigns and assert template to controller testing
 end
 
 group :development do

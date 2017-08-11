@@ -1,0 +1,27 @@
+
+<h1>Accesses for user: <%= current_user.email %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Provider</th>
+      <th>E-mail</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accesses.each do |access| %>
+      <tr class='userAccess'>
+        <td class='provider'><%= access.provider %></td>
+        <td class='email'><%= access.email %></td>
+        <td class='show'><%= link_to 'Show', access %></td>
+        <td class='destroy'><%= link_to 'Destroy', access, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<a href='/auth/google_oauth2'>Add Google Docs Account</a>

@@ -49,4 +49,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  # put save_and_open_pages in tmp folder instead of root
+  Capybara.save_and_open_page_path = 'tmp/capybara'
+
 end

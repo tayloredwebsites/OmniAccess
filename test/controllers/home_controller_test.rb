@@ -9,13 +9,13 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     sign_in @one
   end
 
-  test "should get index" do
+  test "should get home index" do
     sign_in_user_before
     get home_index_url
     assert_response :success
   end
 
-  def test_should_get_index_method
+  def test_should_get_home_index_method
     sign_in_user_before
     get home_index_url
     assert_response :success

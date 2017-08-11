@@ -1,0 +1,16 @@
+<br>
+<p id='access_id'><strong>id: </strong><%= access.id %></p>
+<p id='user_id'><strong>user_id: </strong><%= access.user_id %></p>
+<% if access.user.present? %>
+  <p id='user_email'><strong>user_email: </strong><%= access.user.email %></p>
+<% end %>
+<p id='provider'><strong>provider: </strong><%= access.provider %></p>
+<p id='uid'><strong>uid: </strong><%= access.uid %></p>
+<p id='email'><strong>email: </strong><%= access.email %></p>
+<p id='name'><strong>name: </strong><%= access.name %></p>
+<p id='state'><strong>state: </strong><%= access.state %></p>
+<p id='code'><strong>code: </strong><%= access.code %></p>
+<p id='expires'><strong>expires: </strong><%= access.expires %></p>
+<p id='expires_at'><strong>expires_at: </strong><%= access.expires_at %></p>
+<p id='token'><strong>token: </strong><%= access.token %></p>
+<br>

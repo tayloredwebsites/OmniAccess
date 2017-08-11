@@ -12,7 +12,7 @@ class UserTest < ActiveSupport::TestCase
     refute user.valid?, 'missing password is missing error'
   end
 
-  test "with mismatched passwords succeeds" do
+  test "with mismatched passwords fails" do
     user = User.new(email: 'testing@sample.com', password: 'testing', password_confirmation: 'testing2')
     refute user.valid?, 'mismatched emails is missing error'
   end

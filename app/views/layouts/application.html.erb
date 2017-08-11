@@ -9,8 +9,8 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if flash[:notice].present? %><p class="notice"><strong>Notice: </strong><%= flash[:notice] %></p><% end %>
+    <% if flash[:alert].present? %><p class="alert"><strong>Alert!: </strong><%= flash[:alert] %></p><% end %>
 
     <%= yield %>
   </body>
