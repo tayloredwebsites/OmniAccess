@@ -14,5 +14,8 @@ module Omniaccess
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # omniauth initializer configurations
+    config.google_oauth_readonly_scope = 'userinfo.email, userinfo.profile, https://www.googleapis.com/auth/drive.readonly'
   end
 end

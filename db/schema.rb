@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805221710) do
+ActiveRecord::Schema.define(version: 20170815151459) do
 
   create_table "accesses", force: :cascade do |t|
     t.integer "user_id"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20170805221710) do
     t.datetime "expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "refresh_token"
+    t.text "omni_hash"
     t.index ["provider", "email"], name: "index_accesses_on_provider_and_email", unique: true
     t.index ["provider", "uid"], name: "index_accesses_on_provider_and_uid", unique: true
     t.index ["user_id"], name: "index_accesses_on_user_id"

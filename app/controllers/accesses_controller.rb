@@ -15,7 +15,8 @@ class AccessesController < ApplicationController
   # always generate an access model for error display.
   def create
     # make sure all parameters needed for access record are there
-    Rails.logger.debug("*** AccessController#create params: #{params.inspect}")
+    # Rails.logger.debug("*** AccessController#create params: #{params.inspect}")
+    # Rails.logger.debug("*** `request.env['omniauth.auth']: #{request.env['omniauth.auth'].inspect}")
     begin
       # check if record exists already or failure
       access = get_or_create_rec(params, request)
@@ -79,10 +80,9 @@ class AccessesController < ApplicationController
 
     # read existing record or create new access record, and then check for key consistency
     def get_or_create_rec(params, request)
-      Rails.logger.debug("*** get_or_create_rec")
       if /invalid_credentials/.match(params['message'])
         # invalid credentials failure (from failure callback)
-        Rails.logger.debug("*** invalid credentials")
+        Rails.logger.error("*** invalid credentials")
         ret = Access.new
         ret.provider = params['strategy']
         ret.errors.add(:base, "invalid credentials")
@@ -99,16 +99,13 @@ class AccessesController < ApplicationController
         # Key consistency checks
         if matching_uids.count == 0 && matching_emails.count == 0
           # no matching records in database, return a new record
-          Rails.logger.debug("*** get_or_create_rec matching_uids 0")
           return Access.new
         elsif matching_uids.count == 1 &&
           matching_emails.count == 1 &&
           matching_uids.first.id == matching_emails.first.id
           # record is same from both lookups
-          Rails.logger.debug("*** get_or_create_rec matching_uids 1")
           return matching_uids.first
         else
-          Rails.logger.debug("*** get_or_create_rec matching_uids else")
           # mismatched records in database return one with error
           ret = matching_emails.first
           ret.errors.add(:base, "Mismatched lookups by uid: #{uid.inspect} and email: #{email.inspect}")
@@ -120,7 +117,6 @@ class AccessesController < ApplicationController
     # build the access record from the various param and request values
     # mark model field with error, if nil error getting the parameter for it
     def populate_access_rec(rec, params, request)
-      Rails.logger.debug("*** populate_access_rec")
       omni_hash =  request.env['omniauth.auth']
       if rec.new_record?
         # put in key values for new record
@@ -128,7 +124,6 @@ class AccessesController < ApplicationController
         rec.provider = params['provider']
         rec.uid = omni_hash[:uid] rescue rec.errors.add(:uid, 'missing uid parameters')
         rec.email = omni_hash[:info][:email] rescue rec.errors.add(:email, 'missing [:info][:email] parameters')
-        Rails.logger.debug("*** populate_access_rec new_record")
       else
         # comparison key values obtained safely
         user_id = current_user.id rescue nil
@@ -140,7 +135,6 @@ class AccessesController < ApplicationController
         rec.errors.add(:provider, "does not match #{provider.inspect}e") if rec.provider != provider
         rec.errors.add(:uid, "does not match #{uid.inspect}") if rec.uid != uid
         rec.errors.add(:email, "does not match #{email.inspect}")if rec.email != email
-        Rails.logger.debug("*** populate_access_rec not new_record")
       end
       rec.name = omni_hash[:info][:name] rescue rec.errors.add(:name, 'missing [:info][:name] parameters')
       # hack to get omniauth mock to pass the state and code values
@@ -153,13 +147,15 @@ class AccessesController < ApplicationController
         rec.code = params['code']
       end
       rec.expires = omni_hash[:credentials][:expires] rescue nil
+      rec.expires_at = nil
       if rec.expires
-        expires_at = Integer(omni_hash[:credentials][:expires_at]) rescue 0
-        rec.expires_at = expires_at
-      else
-        rec.expires_at = nil
+        # get timestamp from expires_at in unix seconds since epoch ( January 1, 1970 - midnight UTC/GMT )
+        expires_at_i = Integer(omni_hash[:credentials][:expires_at]) rescue 0
+        rec.expires_at = Time.at(expires_at_i).utc.to_datetime if expires_at_i > 0
       end
       rec.token = omni_hash[:credentials][:token] rescue rec.errors.add(:name, 'missing [:credentials][:token] parameters')
+      rec.refresh_token = omni_hash[:credentials][:refresh_token] rescue nil # OK if no refresh token
+      rec. omni_hash = omni_hash
       return rec
     end
 

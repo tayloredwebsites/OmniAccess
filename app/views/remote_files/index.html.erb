@@ -1,0 +1,32 @@
+
+<h1>User: <%= current_user.email %></h1>
+
+<h>files for access: <%= @access.user.email %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>File Name</th>
+      <th>File ID</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @files.each do |file| %>
+      <tr class='file'>
+        <td class='name'><%= file.name %></td>
+        <td class='id'><%= file.id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if @next_page_token.present? %>
+  <%= link_to 'Next Page', remote_files_url(@access.id, next_page_token: @next_page_token) %>
+<% end %>
+
+<p><a href='/auth/google_oauth2'>Authorize another google docs account as read only</a></p>
+<p><a href='/accesses'>Account Accessed Listing</a></p>

@@ -40,6 +40,12 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
+# use google api client to obtain access to google drive files
+gem 'google-api-client'
+
+# httparty to manually send request to update refresh access token
+gem 'httparty'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
