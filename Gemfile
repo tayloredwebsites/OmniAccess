@@ -38,7 +38,7 @@ gem 'devise'
 
 # Use omniauth to authorize access to providers
 gem 'omniauth'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '~>0.8.0'
 
 # use google api client to obtain access to google drive files
 gem 'google-api-client'
