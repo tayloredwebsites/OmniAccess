@@ -1,4 +1,4 @@
-
+# Creates the route for /auth/google_oauth2
 Rails.application.config.middleware.use OmniAuth::Builder do
   secrets = Rails.application.secrets
   provider :google_oauth2,

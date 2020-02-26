@@ -16,6 +16,6 @@ module Omniaccess
     # -- all .rb files in that directory are automatically loaded.
 
     # omniauth initializer configurations
-    config.google_oauth_readonly_scope = 'userinfo.email, userinfo.profile, https://www.googleapis.com/auth/drive.readonly'
+    config.google_oauth_readonly_scope = 'email, profile, https://www.googleapis.com/auth/drive.readonly'
   end
 end

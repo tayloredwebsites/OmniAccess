@@ -14,6 +14,7 @@ class AccessesController < ApplicationController
   # handler for callback from omniauth ( as well as failure callback)
   # always generate an access model for error display.
   def create
+    Rails.logger.debug("Inside of POST accesses/create")
     # make sure all parameters needed for access record are there
     # Rails.logger.debug("*** AccessController#create params: #{params.inspect}")
     # Rails.logger.debug("*** `request.env['omniauth.auth']: #{request.env['omniauth.auth'].inspect}")
